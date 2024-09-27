@@ -50,3 +50,21 @@ jobs:
 
       - name: Run tests
         run: pipenv run lint
+  build:
+    needs: [test, lint]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+       
+      - name: Build Docker image
+        run: docker build --tag mp-backend:latest .
+
+      - name: Run Docker container
+        run: docker run -p 5000:5000 --name mp-backend -d mp-backend
+
+      - name: Check the running application
+        run: curl http://localhost:5000/movies
+
+      - name: Stop docker
+        run: docker stop mp-backend
