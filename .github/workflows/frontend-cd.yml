@@ -12,90 +12,90 @@ defaults:
     working-directory: starter/frontend
 
 jobs:
-#   test:
-#     runs-on: ubuntu-24.04
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Setup Node.js environment
-#         uses: actions/setup-node@v4.0.4
-#         with:
-#           node-version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: latest
           
-#       - name: Cache
-#         uses: actions/cache@v4.0.2
-#         with:
-#           # A list of files, directories, and wildcard patterns to cache and restore
-#           path: ~/.npm
-#           # An explicit key for restoring and saving the cache
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                 
-#       - name: install dependancies
-#         run: npm ci
+      - name: install dependancies
+        run: npm ci
 
-#       - name: Run tests
-#         run: npm test
-#   lint:
-#     runs-on: ubuntu-24.04
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+      - name: Run tests
+        run: npm test
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Setup Node.js environment
-#         uses: actions/setup-node@v4.0.4
-#         with:
-#           node-version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: latest
 
-#       - name: Cache
-#         uses: actions/cache@v4.0.2
-#         with:
-#           # A list of files, directories, and wildcard patterns to cache and restore
-#           path: ~/.npm
-#           # An explicit key for restoring and saving the cache
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
-#       - name: install dependancies
-#         run: npm ci
+      - name: install dependancies
+        run: npm ci
 
-#       - name: Run tests
-#         run: npm run lint        
-#   build:
-#     needs: [test,lint]
-#     runs-on: ubuntu-24.04
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
+      - name: Run tests
+        run: npm run lint        
+  build:
+    needs: [test,lint]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-#       - name: Setup Node.js environment
-#         uses: actions/setup-node@v4.0.4
-#         with:
-#           node-version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.4
+        with:
+          node-version: latest
 
-#       - name: Cache
-#         uses: actions/cache@v4.0.2
-#         with:
-#           # A list of files, directories, and wildcard patterns to cache and restore
-#           path: ~/.npm
-#           # An explicit key for restoring and saving the cache
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
-#       - name: install dependancies
-#         run: npm ci
+      - name: install dependancies
+        run: npm ci
 
-#       - name: Run test
-#         run: npm run test
+      - name: Run test
+        run: npm run test
 
-#       - name: Build Docker image
-#         run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+      - name: Build Docker image
+        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
 
-#       - name: Run Docker container
-#         run: docker run -p 3000:3000 --name mp-frontend -d mp-frontend
+      - name: Run Docker container
+        run: docker run -p 3000:3000 --name mp-frontend -d mp-frontend
 
-#       - name: Stop docker
-#         run: docker stop mp-frontend
+      - name: Stop docker
+        run: docker stop mp-frontend
   deploy:
-    # needs: [build]
+    needs: [build]
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
