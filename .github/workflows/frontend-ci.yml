@@ -23,6 +23,14 @@ jobs:
         with:
           node-version: latest
           
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                
       - name: install dependancies
         run: npm ci
 
@@ -38,6 +46,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
+
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
       - name: install dependancies
         run: npm ci
@@ -56,6 +72,14 @@ jobs:
         with:
           node-version: latest
 
+      - name: Cache
+        uses: actions/cache@v4.0.2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ~/.npm
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          
       - name: install dependancies
         run: npm ci
 
