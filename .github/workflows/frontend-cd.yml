@@ -11,7 +11,7 @@ defaults:
   run:
     working-directory: starter/frontend
 
-# jobs:
+jobs:
 #   test:
 #     runs-on: ubuntu-24.04
 #     steps:
