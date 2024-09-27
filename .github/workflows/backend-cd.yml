@@ -104,11 +104,12 @@ jobs:
           command: "version"
         env:
           EKS_CLUSTER: "cluster"
+
+      - name: Deploy Kubernetes
+        env:
           REGISTRY: ${{ vars.BACKEND_ECR }}
           REPOSITORY: ${{ vars.BACKEND_REPO }}
           IMAGE_TAG: ${{ github.sha }}
-
-      - name: Deploy Kubernetes
         run: |
           aws eks update-kubeconfig --region us-east-1 --name cluster
           cd k8s
