@@ -1,0 +1,13 @@
+name: Backend Continuous Integration
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches:
+      - main
+    paths: starter/backend
+
+defaults:
+  run:
+    working-directory: starter/backend
