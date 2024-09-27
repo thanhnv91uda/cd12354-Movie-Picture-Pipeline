@@ -105,7 +105,7 @@ jobs:
         env:
           EKS_CLUSTER: "cluster"
           REGISTRY: ${{ vars.BACKEND_ECR }}
-          REPOSITORY: backend
+          REPOSITORY: ${{ vars.BACKEND_REPO }}
           IMAGE_TAG: ${{ github.sha }}
 
       - name: Deploy Kubernetes
