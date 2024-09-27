@@ -12,7 +12,7 @@ defaults:
     working-directory: starter/frontend
 
 jobs:
-  running-test:
+  test:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -28,3 +28,19 @@ jobs:
 
       - name: Run tests
         run: npm test
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node 
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          
+      - name: install dependancies
+        run: npm ci
+
+      - name: Run tests
+        run: npm lint        
