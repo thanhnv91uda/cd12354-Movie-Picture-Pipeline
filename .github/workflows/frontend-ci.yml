@@ -44,3 +44,29 @@ jobs:
 
       - name: Run tests
         run: npm run lint        
+  build:
+    needs: [test,lint]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: install dependancies
+        run: npm ci
+
+      - name: Run test
+        run: npm run test
+
+      - name: Build Docker image
+        run: docker build --build-arg=REACT_APP_MOVIE_API_URL=http://localhost:5000 --tag=mp-frontend:latest .
+
+      - name: Run Docker container
+        run: docker run -p 3000:3000 --name mp-frontend -d mp-frontend
+
+      - name: Stop docker
+        run: docker stop mp-frontend
